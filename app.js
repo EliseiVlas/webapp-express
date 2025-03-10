@@ -7,19 +7,22 @@
   const app = express();
 
   // Definisce la porta su cui il server ascolterà le richieste
-  const port = 3000
+  const port = process.env.PORT
 
 //    //   aggiungi cors
 //    const cors = require('cors');
 
-// // importiamo il roputer dei piatti
-// const piattiRouter = require('./routers/movies');
+// importiamo il roputer dei piatti
+const piattiRouter = require('./routers/movies');
 
 // importiamo il middleware di gestione errore server
 const errorsHandler = require("./middlewares/errorsHandler");
 
 // importiamo il middleware di gestione errore 404
-const notFound = require("./middlewares/notFound");                                                   
+const notFound = require("./middlewares/notFound");         
+
+// importiamo il middleware di gestione path imgs
+const imagePathMiddleware = require('./middlewares/imagePath');
 
 // definiamo la cartella per i file statici (le immagini)
 app.use(express.static("public"));
@@ -27,6 +30,8 @@ app.use(express.static("public"));
 // registro il body-parser per "application/json"
 app.use(express.json());
 
+// registro il middleware di path imgs
+app.use(imagePathMiddleware);
 
 // progetto base con rotta "/"
 app.get('/', (req, res) => {
@@ -37,7 +42,7 @@ app.get('/', (req, res) => {
 // app.use(cors({origin: "http://localhost:5173"}));
 
 // utilizziamo la rotta dei piatti andando a definire la parte iniziale delle rotte
-// app.use("/piatti", piattiRouter)
+app.use("/movie", piattiRouter)
 
 // utilizzo middleware di gestione errore server
 app.use(errorsHandler);
