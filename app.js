@@ -9,8 +9,8 @@
   // Definisce la porta su cui il server ascolterà le richieste
   const port = process.env.PORT
 
-//    //   aggiungi cors
-//    const cors = require('cors');
+   //   aggiungi cors
+   const cors = require('cors');
 
 // importiamo il roputer dei piatti
 const piattiRouter = require('./routers/movies');
@@ -38,8 +38,8 @@ app.get('/', (req, res) => {
    res.send("Ciao sono la rotta Home, dell miei film!!!");
 });
 
-// // utilizzo il midllewares cors
-// app.use(cors({origin: "http://localhost:5173"}));
+// utilizzo il midllewares cors
+app.use(cors({origin: process.env.FE_APP}));
 
 // utilizziamo la rotta dei piatti andando a definire la parte iniziale delle rotte
 app.use("/movie", piattiRouter)
