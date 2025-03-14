@@ -5,6 +5,7 @@
     // Crea un'istanza di router
     const router = express.Router();
 
+    const upload = require('../middlewares/multer'); 
 // importiamo il roputer dei piatti
 const movieController = require('../controllers/movieController');
 
@@ -17,6 +18,8 @@ router.get('/:id', movieController.show);
 
 // store review
 router.post('/:id/review', movieController.storeReview);
+// store movie
+router.post('/', upload.single('image'), movieController.store);
 
 // // update
 // router.put('/:id', movieController.update);
